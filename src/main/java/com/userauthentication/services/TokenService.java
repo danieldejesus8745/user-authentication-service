@@ -10,4 +10,8 @@ public class TokenService {
 
     private final TokenRepository tokenRepository;
 
+    public void createToken(String body) {
+        //
+    }
+
 }
