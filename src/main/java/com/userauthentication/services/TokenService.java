@@ -27,7 +27,13 @@ public class TokenService {
 
         if (Objects.isNull(tokenFound)) return false;
 
-        return System.currentTimeMillis() < tokenFound.getExpiration();
+        if (!isValidToken(tokenFound.getExpiration())) tokenRepository.deleteById(tokenFound.getId());
+
+        return isValidToken(tokenFound.getExpiration());
+    }
+
+    private boolean isValidToken(long expiration) {
+        return System.currentTimeMillis() < expiration;
     }
 
 }
