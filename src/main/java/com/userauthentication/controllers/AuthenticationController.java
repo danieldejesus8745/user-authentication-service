@@ -14,6 +14,7 @@ import java.net.http.HttpResponse;
 import static com.userauthentication.utils.Constants.AUTHENTICATION;
 import static com.userauthentication.utils.Messages.MESSAGE_2;
 import static com.userauthentication.utils.Messages.MESSAGE_3;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ import static com.userauthentication.utils.Messages.MESSAGE_3;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final TokenService tokenService;
 
     @PostMapping
     public ResponseEntity<String> authenticateUser(@RequestHeader(AUTHENTICATION) String credentials) {
@@ -35,6 +37,11 @@ public class AuthenticationController {
         }
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<Boolean> validateToken(@RequestHeader(AUTHORIZATION) String token) {
+        return ResponseEntity.ok(tokenService.validateToken(token));
     }
 
 }
