@@ -10,7 +10,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 
+import static com.userauthentication.utils.Constants.AUTHENTICATION;
 import static com.userauthentication.utils.Constants.USER_AUTHENTICATION_ENDPOINT;
 import static com.userauthentication.utils.Messages.MESSAGE_1;
 
@@ -21,29 +23,30 @@ public class AuthenticationService {
 
     private final TokenService tokenService;
 
-    public void authenticateUser(String credentials) {
+    public String authenticateUser(String credentials) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(USER_AUTHENTICATION_ENDPOINT))
+                .header(AUTHENTICATION, credentials)
                 .build();
 
         HttpClient httpClient = HttpClient.newBuilder().build();
 
         try {
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            handlingResponse(response);
+            return handlingResponse(response);
         } catch (InterruptedException | IOException exception) {
             log.error(exception.getMessage());
             throw new IllegalStateException(MESSAGE_1.getMessage());
         }
     }
 
-    private void handlingResponse(HttpResponse<String> response) {
+    private String handlingResponse(HttpResponse<String> response) {
         if (response.statusCode() == 200) {
-            tokenService.createToken(response.body());
+            return tokenService.createToken(response.body());
         }
 
-        return;
+        return response.body();
     }
 
 }
