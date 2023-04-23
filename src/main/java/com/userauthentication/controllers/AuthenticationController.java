@@ -5,12 +5,14 @@ import com.userauthentication.services.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.userauthentication.utils.Constants.AUTHENTICATION;
 import static com.userauthentication.utils.Messages.MESSAGE_2;
 import static com.userauthentication.utils.Messages.MESSAGE_3;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,11 +35,6 @@ public class AuthenticationController {
         }
 
         return ResponseEntity.ok(response);
-    }
-
-    @GetMapping
-    public ResponseEntity<Boolean> validateToken(@RequestHeader(AUTHORIZATION) String token) {
-        return ResponseEntity.ok(tokenService.validateToken(token));
     }
 
 }
