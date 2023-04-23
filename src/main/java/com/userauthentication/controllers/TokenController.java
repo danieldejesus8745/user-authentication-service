@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.userauthentication.utils.Constants.TOKEN;
+import static com.userauthentication.utils.Constants.TOKEN_ON_PATH;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class TokenController {
 
     private final TokenService tokenService;
 
-    @GetMapping
+    @GetMapping(path = TOKEN_ON_PATH)
     public ResponseEntity<Boolean> validateToken(@PathVariable(TOKEN) String token) {
         return ResponseEntity.ok(tokenService.validateToken(token));
     }
