@@ -2,14 +2,10 @@ package com.userauthentication.controllers;
 
 import com.userauthentication.services.AuthenticationService;
 import com.userauthentication.services.TokenService;
-import com.userauthentication.utils.Messages;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.http.HttpResponse;
 
 import static com.userauthentication.utils.Constants.AUTHENTICATION;
 import static com.userauthentication.utils.Messages.MESSAGE_2;

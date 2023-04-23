@@ -1,6 +1,5 @@
 package com.userauthentication.services;
 
-import com.userauthentication.utils.Messages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Base64;
 
 import static com.userauthentication.utils.Constants.AUTHENTICATION;
 import static com.userauthentication.utils.Constants.USER_AUTHENTICATION_ENDPOINT;
