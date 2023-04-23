@@ -3,13 +3,9 @@ package com.userauthentication.controllers;
 import com.userauthentication.services.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.userauthentication.utils.Constants.TOKEN;
-import static com.userauthentication.utils.Constants.TOKEN_ON_PATH;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,8 +14,8 @@ public class TokenController {
 
     private final TokenService tokenService;
 
-    @GetMapping(path = TOKEN_ON_PATH)
-    public ResponseEntity<Boolean> validateToken(@PathVariable(TOKEN) String token) {
+    @GetMapping
+    public ResponseEntity<Boolean> validateToken(@RequestHeader(AUTHORIZATION) String token) {
         return ResponseEntity.ok(tokenService.validateToken(token));
     }
 
